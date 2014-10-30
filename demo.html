@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo of lazyevents</title>
+  <script type="text/javascript">
+
+  // Set some config options before including the plugin
+  var LazyEventConfig = {
+
+    // How often the event can fire in milliseconds
+    timeout: 500,
+
+    // An array of the event names to track
+    realEvents: ['scroll', 'resize', 'mousemove'],
+
+    // The prefix placed before the real events to mark the lazy events
+    prefix: 'lazy'
+  };
+
+(function() {
+  var chk = null;
+
+  var handler = function(ev) {
+    console.log(ev.type + ' fired');
+  };
+  var handleReal = function(ev) {
+    if (chk.checked) handler(ev);
+  };
+
+  // Set up demo debug console logging
+  window.addEventListener('load', function() {
+    chk = document.getElementById('showreal');
+    for (var i = 0; i < LazyEventConfig.realEvents.length; i++) {
+      var ev = LazyEventConfig.realEvents[i];
+      if (window.addEventListener) {
+        window.addEventListener(LazyEventConfig.prefix + ev, handler, false);
+        window.addEventListener(ev, handleReal, false);
+      }
+    }
+  }, false);
+})();
+
+  </script>
+  <script type="text/javascript" src="lazyevents.js"></script>
+</head>
+<body>
+  <h1>Demo of lazyevents.js</h1>
+  <p>This demo page will set up the lazy events on scroll, resize and mouse move.</p>
+  <form><input type="checkbox" id="showreal" name="showreal"><label for="showreal">Show Real Events</label></form>
+  <p>It will print a message to the browser console when the event fires so you can see the frequency. If you wish to compare this to the frequency of the normal events, check the "show real events" box and the demo will also show a message for the real events. The real events fire often so may overwhelm the lazy events in the console.</p>
+  <p>In order to fire the events you'll need to resize or scroll the window (hence the lorum ipsum to create scrollbars for you)</p>
+  <hr/>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu sagittis purus. Phasellus malesuada gravida condimentum. Curabitur mattis massa dolor, ullamcorper efficitur mauris varius quis. Nullam eget ullamcorper lorem, ac dictum nulla. Fusce vehicula sagittis porta. Etiam ut dolor semper, tincidunt lectus sed, tincidunt diam. Praesent lobortis eros sit amet maximus gravida.</p>
+  <p>Mauris tincidunt hendrerit finibus. Curabitur id ultrices risus. Sed ac viverra metus. Nulla facilisi. Vivamus mollis, mauris in volutpat facilisis, sem leo commodo ligula, sed faucibus felis risus et eros. Donec ut sem vitae massa hendrerit dictum at ultricies massa. Sed pellentesque ut nisl sed consequat. Pellentesque dictum, sapien ac finibus mollis, lectus quam efficitur nisl, quis pharetra neque dui a neque. Donec porttitor eu tortor id aliquet.</p>
+  <p>Mauris lobortis sit amet nunc et imperdiet. Sed pretium facilisis ligula et dictum. Integer nec eleifend lorem. Vivamus lobortis nulla sed convallis interdum. Etiam posuere scelerisque dui. Duis id lacinia diam, eget fringilla lorem. Aenean sit amet bibendum leo. Suspendisse at elementum velit. Proin ullamcorper, velit ac facilisis lacinia, augue nibh vehicula ante, id auctor elit leo a enim.</p>
+  <p>Aliquam faucibus magna vel ullamcorper blandit. Cras pellentesque non metus quis porta. Praesent ultricies feugiat ipsum, vitae lacinia enim viverra quis. Sed id nisl lacinia, egestas felis eget, egestas velit. Vivamus libero lacus, pellentesque eu libero id, maximus tincidunt eros. Nulla vehicula vel diam eu hendrerit. Phasellus a dictum mi. Mauris placerat a risus vitae dapibus. Etiam fermentum ut mi eget pretium. Ut quis ex tellus. Morbi vel justo eu nunc scelerisque dictum.</p>
+  <p>Nunc ac massa consectetur, malesuada lorem eget, aliquam massa. Duis vitae vestibulum augue. Donec sed turpis sit amet libero facilisis ullamcorper in a mauris. Proin lobortis tristique nunc. Aliquam condimentum tortor eu ex hendrerit ullamcorper. Sed non placerat velit. Donec ut risus vel odio ultricies condimentum sit amet ac nulla. Vivamus tempor quis ex at scelerisque. Duis varius congue fermentum. Duis ultricies mauris quis lectus fringilla molestie. Phasellus eu suscipit neque, sit amet sagittis ex. Morbi fermentum, ipsum in hendrerit ultricies, velit nulla ultricies urna, eu volutpat lorem velit vel nisl. Nunc mi justo, tempor molestie venenatis maximus, mollis vel urna. Nunc mi nunc, aliquam ut turpis nec, porttitor vehicula arcu. Sed dignissim blandit augue porta ultrices.</p>
+</body>
+</html>
